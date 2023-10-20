@@ -27,37 +27,33 @@ class SendMessage extends Command
     public function handle()
     {
          // Get the current date and time
-        //  $currentDateTime = now();
-        $currentDateTime = '2023-10-20 14:15:16';
+        $currentDateTime = now();
+        // $this->info($currentDateTime);
+        // $currentDateTime = '2023-10-20 14:15:16';
         $currentDateTimeFormatted = date('Y-m-d H:i', strtotime($currentDateTime));
 
-        $messages = Message::whereRaw("DATE_FORMAT(sent_at, '%Y-%m-%d %H:%i') = ?", [$currentDateTimeFormatted])->get();
-
-        // foreach ($messages as $message) {
-        //     $message = $message->message;
-        //     $this->sendTelegramMessage($message);
-        //     $this->info($message);
-        // }
+        $messages = Message::whereRaw("DATE_FORMAT(sent_at, '%Y-%m-%d %H:%i') = ?", [$currentDateTimeFormatted])->where('status',"Pending")->get();
 
         foreach ($messages as $message) {
-            $title = $message->title; // Assuming you have a 'title' field in your 'Message' model
             $content = $message->message;
-            $messageToSend = "Title" ." : ". $title . "\n" . "Message" ." : ". $content; // Combine title and message
+            $messageToSend =  $content;
 
             $this->sendTelegramMessage($messageToSend);
-            // Send your message or perform any other action here
+            // Update the status to "sent"
+            $message->status = 'Sent';
+            $message->save();
             $this->info($messageToSend);
         }
 
     }
 
-    private function sendTelegramMessage($message)
+    private function sendTelegramMessage($messageToSend)
     {
-        $apiToken = "6651277985:AAH24E6K1BET_1PeAnATsdAQ4f9OBKTi4H8";
+        $apiToken = "6481233772:AAE7GlCfU4bjTgm9yKMhNgkoJkq7ecv0keY";
 
         $data = [
-            'chat_id' => '@MessagesSchedularbot',
-            'text' => $message
+            'chat_id' => '-1001957106090',
+            'text' => $messageToSend
         ];
 
         $response = file_get_contents("http://api.telegram.org/bot$apiToken/sendMessage?" . http_build_query($data));
