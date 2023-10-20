@@ -58,7 +58,7 @@
 
 @endsection
 @section('scripts')
-{{-- <script>
+<!-- <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Find the input field with the ID 'sent_at'
         var sentAtInput = document.getElementById('sent_at');
@@ -78,6 +78,8 @@
         // Set the 'min' attribute of the input field to the current date and time
         sentAtInput.min = getCurrentDateTime();
         alert(sentAtInput..valueAsDate);
+
+
     });
-</script> --}}
+</script> -->
 @endsection
