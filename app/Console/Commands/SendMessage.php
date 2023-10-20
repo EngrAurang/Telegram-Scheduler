@@ -33,20 +33,30 @@ class SendMessage extends Command
 
         $messages = Message::whereRaw("DATE_FORMAT(sent_at, '%Y-%m-%d %H:%i') = ?", [$currentDateTimeFormatted])->get();
 
+        // foreach ($messages as $message) {
+        //     $message = $message->message;
+        //     $this->sendTelegramMessage($message);
+        //     $this->info($message);
+        // }
+
         foreach ($messages as $message) {
-            $message = $message->message;
+            $title = $message->title; // Assuming you have a 'title' field in your 'Message' model
+            $content = $message->message;
+            $messageToSend = "Title" ." : ". $title . "\n" . "Message" ." : ". $content; // Combine title and message
+
+            $this->sendTelegramMessage($messageToSend);
             // Send your message or perform any other action here
-            $this->info($message);
+            $this->info($messageToSend);
         }
 
     }
 
     private function sendTelegramMessage($message)
     {
-        $apiToken = "6481233772:AAE7GlCfU4bjTgm9yKMhNgkoJkq7ecv0keY";
+        $apiToken = "6651277985:AAH24E6K1BET_1PeAnATsdAQ4f9OBKTi4H8";
 
         $data = [
-            'chat_id' => '-1001957106090',
+            'chat_id' => '@MessagesSchedularbot',
             'text' => $message
         ];
 
