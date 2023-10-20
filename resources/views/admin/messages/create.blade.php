@@ -31,7 +31,7 @@
             </div>
             <div class="form-group">
                 <label class="required" for="sent_at">{{ trans('cruds.message.fields.sent_at') }}</label>
-                <input class="form-control datetime {{ $errors->has('sent_at') ? 'is-invalid' : '' }}" type="datetime-local" name="sent_at" id="sent_at" required>
+                <input class="form-control datetime {{ $errors->has('sent_at') ? 'is-invalid' : '' }}" type="text" name="sent_at" id="sent_at" required>
                 @if($errors->has('sent_at'))
                     <div class="invalid-feedback">
                         {{ $errors->first('sent_at') }}
@@ -58,7 +58,7 @@
 
 @endsection
 @section('scripts')
-<script>
+{{-- <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Find the input field with the ID 'sent_at'
         var sentAtInput = document.getElementById('sent_at');
@@ -79,5 +79,5 @@
         sentAtInput.min = getCurrentDateTime();
         alert(sentAtInput..valueAsDate);
     });
-</script>
+</script> --}}
 @endsection
