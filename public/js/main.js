@@ -17,7 +17,7 @@ $(document).ready(function () {
   })
 
   $('.datetime').datetimepicker({
-    format: 'YYYY-MM-DD HH:mm',
+    format: 'YYYY-MM-DD HH:mm:ss',
     locale: 'en',
     sideBySide: true,
     minDate: 0,
